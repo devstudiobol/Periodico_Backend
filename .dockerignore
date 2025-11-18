@@ -1,0 +1,10 @@
+# Evita que se copien los directorios de compilación
+**/bin/
+**/obj/
+
+# Ignora carpetas de control de código fuente y configuración de IDE
+**/.git
+**/.gitignore
+**/.vs
+**/.vscode
+**/*.user

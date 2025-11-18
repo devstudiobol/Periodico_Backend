@@ -1,0 +1,6 @@
+@PeriodicoUpdate_HostAddress = http://localhost:5076
+
+GET {{PeriodicoUpdate_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###

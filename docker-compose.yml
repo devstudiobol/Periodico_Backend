@@ -1,0 +1,30 @@
+version: '3.8'
+
+services:
+  # 1. El servicio de tu API (basado en tu Dockerfile)
+  api:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    ports:
+      - "8000:8080"
+    environment:
+      # --- AÑADE ESTA LÍNEA ---
+      - ASPNETCORE_ENVIRONMENT=Development 
+      # -----------------------
+      - ConnectionStrings__Connection=Server=db;Database=Periodico;User Id=sa;Password=${DB_PASSWORD};TrustServerCertificate=true
+      - Jwt__Key=${JWT_KEY}
+      - CloudinarySettings__CloudName=${CLOUDINARY_NAME}
+      - CloudinarySettings__ApiKey=${CLOUDINARY_APIKEY}
+      - CloudinarySettings__ApiSecret=${CLOUDINARY_SECRET}
+    depends_on:
+      - db
+
+  # 2. El servicio de la Base de Datos (SQL Server)
+  db:
+    image: "mcr.microsoft.com/mssql/server:2019-latest" # Imagen oficial de SQL Server
+    environment:
+      - ACCEPT_EULA=Y
+      - SA_PASSWORD=${DB_PASSWORD} # Usa la contrase�a del archivo .env
+    ports:
+      - "1433:1433" # Mapea el puerto 1433 de tu PC al 1433 del contenedor
